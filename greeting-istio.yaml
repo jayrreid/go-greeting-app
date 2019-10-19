@@ -27,9 +27,11 @@ spec:
     - destination:
         host: greeting-service
         subset: v1
-        port:
-          number: 80
-      weight: 100
+      weight: 80
+    - destination:
+        host: greeting-service
+        subset: v2
+      weight: 20
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -41,3 +43,6 @@ spec:
   - name: v1
     labels:
       version: v1
+  - name: v2
+    labels:
+      version: v2
