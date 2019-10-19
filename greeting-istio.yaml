@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: greeting-service
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: greeting-service
+spec:
+  host: greeting-service
+  subsets:
+  - name: greeting-service
+    labels:
+      greeting: hello
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: greeting-service
+spec:
+  gateways:
+    - greeting # namespace of the Gateway
+  hosts:
+    - greeting.com
+  http:
+  - route:
+    - destination:
+        host: greeting-service
+        subset: greeting-hello
+        port:
+          number: 80
+      weight: 50
