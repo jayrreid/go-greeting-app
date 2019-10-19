@@ -15,7 +15,7 @@ type Greeting struct {
 func greeting(w http.ResponseWriter, r *http.Request) {
   // return "hello" greeting
   log.Println("greeting service called")
-  data := Greeting{"hello"}
+  data := Greeting{"hola"}
   b, err := json.Marshal(data)
   if err != nil {
     http.Error(w, "Internal Server Error", 500)
