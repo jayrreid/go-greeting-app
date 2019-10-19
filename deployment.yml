@@ -2,7 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: go-greeting-app
+  name: go-greeting-app-v1
+  labels:
+    version: v1
 spec:
   replicas: 1
   selector:
@@ -12,10 +14,11 @@ spec:
     metadata:
       labels:
         app: go-greeting-app
+        version: v1
     spec:
       containers:
-      - name: application
-        image: jrreid/go-greeting-app
+      - name: go-greeting-app
+        image: jrreid/go-greeting-app:v1
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8081
