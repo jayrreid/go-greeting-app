@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: go-greeting-app-v2
+  name: go-greeting-app-v1
   labels:
-    version: v2
+    version: v1
 spec:
   replicas: 1
   selector:
@@ -14,11 +14,14 @@ spec:
     metadata:
       labels:
         app: go-greeting-app
-        version: v2
+        version: v1
+        sealID: "345872"
+        moduleID: "345872-1"
+        costCenter: "01234"
     spec:
       containers:
       - name: go-greeting-app
-        image: jrreid/go-greeting-app:v2
+        image: 218613010274.dkr.ecr.us-east-1.amazonaws.com/go-greeting-app:v1
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8081
